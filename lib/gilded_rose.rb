@@ -54,6 +54,14 @@ class BackStagePassUpdater < Updater
   end
 end
 
+class ConjuredUpdater < Updater
+  def update_quality
+    return if @item.quality == 0
+    decrease_by = @item.sell_in > 0 ? 2 : 4
+    @item.quality -= decrease_by
+  end
+end
+
 def update_quality(items)
   items.each do |item|
     updater_class = case item.name
@@ -63,6 +71,8 @@ def update_quality(items)
         BrieUpdater
       when "Backstage passes to a TAFKAL80ETC concert"
         BackStagePassUpdater
+      when 'Conjured Mana Cake'
+        ConjuredUpdater
       else
         Updater
     end
