@@ -6,8 +6,7 @@ This is a refactoring kata, so you will be starting with a legacy
 code base.  To work this kata, clone this repo and checkout `master` before
 pulling off a new branch to begin your work. Once you have your branch ready to
 work on, run `bin/rake` or `rspec spec/` to confirm your stating point is
-clean. As you make your refactorings, ensure you are running the test suite
-with the previously mentioned commands to ensure correctness.
+clean. As you make your refactors, use the tests to validate that your behavior is still correct.
 
 <hr />
 
@@ -37,7 +36,7 @@ Pretty simple, right? Well this is where it gets interesting:
   - The Quality of an item is never more than 50
   - "Sulfuras", being a legendary item, never has to be sold or
     decreases in Quality
-  - "Backstage passes", like aged brie, increases in Quality as it's
+  - "Backstage passes", like aged brie, increases in Quality as its
     SellIn value approaches; Quality increases by 2 when there are 10
     days or less and by 3 when there are 5 days or less but Quality
     drops to 0 after the concert
@@ -52,8 +51,7 @@ alter the Item class or Items property as those belong to the goblin
 in the corner who will insta-rage and one-shot you as he doesn't
 believe in shared code ownership (you can make the UpdateQuality
 method and Items property static if you like, we'll cover for
-you). Your work needs to be completed by Friday, February 18, 2011
-08:00:00 AM PST.
+you).
 
 Just for clarification, an item can never have its Quality increase
 above 50, however "Sulfuras" is a legendary item and as such its
