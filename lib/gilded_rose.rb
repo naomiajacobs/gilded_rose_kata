@@ -9,9 +9,19 @@ class Updater
   end
 
   def update_quality
-    return if @item.quality == 0
-    decrease_by = @item.sell_in > 0 ? 1 : 2
-    @item.quality -= decrease_by
+    if quality_direction == :decrease
+      @item.quality = [0, @item.quality - quality_change].max
+    else
+      @item.quality = [50, @item.quality + quality_change].min
+    end
+  end
+
+  def quality_change
+    @item.sell_in > 0 ? 1 : 2
+  end
+
+  def quality_direction
+    :decrease
   end
 
   def update_sell_in
@@ -20,45 +30,53 @@ class Updater
 end
 
 class SulfurasUpdater < Updater
-  def update_quality
-
-  end
-
-  def update_sell_in
+  def update_item
 
   end
 end
 
 class BrieUpdater < Updater
-  def update_quality
-    increase_by = @item.sell_in <= 0 ? 2 : 1
-    @item.quality = [50, @item.quality + increase_by].min
+  def quality_change
+    @item.sell_in <= 0 ? 2 : 1
+  end
+
+  def quality_direction
+    :increase
   end
 end
 
 class BackStagePassUpdater < Updater
+  def initialize(item)
+    super
+    @sell_in = @item.sell_in
+  end
+
   def update_quality
-    sell_in = @item.sell_in
-
-    return @item.quality = 0 if sell_in <= 0
-
-    if sell_in < 6
-      increase_by = 3
-    elsif sell_in < 11
-      increase_by = 2
+    if @sell_in <= 0
+      @item.quality = 0
     else
-      increase_by = 1
+      super
     end
+  end
 
-    @item.quality = [50, @item.quality + increase_by].min
+  def quality_change
+    if @sell_in < 6
+      3
+    elsif @sell_in < 11
+      2
+    else
+      1
+    end
+  end
+
+  def quality_direction
+    :increase
   end
 end
 
 class ConjuredUpdater < Updater
-  def update_quality
-    return if @item.quality == 0
-    decrease_by = @item.sell_in > 0 ? 2 : 4
-    @item.quality -= decrease_by
+  def quality_change
+    super * 2
   end
 end
 
