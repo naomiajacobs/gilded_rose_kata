@@ -55,19 +55,13 @@ class BackStagePassUpdater < Updater
 end
 
 def update_quality(items)
-  types = {
-    sulfuras: "Sulfuras, Hand of Ragnaros",
-    brie: "Aged Brie",
-    backstage_pass: "Backstage passes to a TAFKAL80ETC concert",
-  }
-
   items.each do |item|
     updater_class = case item.name
-      when types[:sulfuras]
+      when "Sulfuras, Hand of Ragnaros"
         SulfurasUpdater
-      when types[:brie]
+      when "Aged Brie"
         BrieUpdater
-      when types[:backstage_pass]
+      when "Backstage passes to a TAFKAL80ETC concert"
         BackStagePassUpdater
       else
         Updater
